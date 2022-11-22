@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8">
+        <!-- Titel für die Seite (was im Tab steht). -->
+        <title>Lauf-Rechner</title>
+        <!-- Einbinden von Bootstrap für das Design. -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+    </head>
+    <body>
+
+
+     <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+            <span class="fs-4">Runner</span>
+          </a>
+
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+
+          </ul>
+        </header>
+
+         <h2>Enter your activity: </h2>
+<!-- Mit diesem Formular werden die für die Berechnung relevanten Daten abgefangen und an die Funktionen übergeben. -->
+        <form method="POST" action="/save">
+            <input type="date" name="date">
+            <input type="text" name="distance" placeholder="distance in km">
+            <input type="number" placeholder="hours" name="hours" min="0">
+            <input type="number" placeholder="minutes" name="minutes" min="0">
+            <input type="number" placeholder="seconds" name="seconds" min="0">
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+
+        {% if activities %}
+
+         <h2>Your progress graph:</h2>
+<!-- Hier ist das Linechart in die HTML-Seite ingegriert -->
+         <div>{{ line_chart|safe }}</div>
+
+         <h2>All your activities:</h2>
+<!-- Hier werden die Aktivitäten mit Datum, Distanz und Kilometergeschwindigkeit in Minuten aufgelistet. -->
+         <table class="table">
+
+             <th>Date</th>
+             <th>Distance</th>
+             <th>Pace</th>
+
+                {% for key, value in activities.items() %}
+                    <tr><td>{{ value.date }}</td><td>{{ value.distance }}</td><td>{{ value.pace }}</td></tr>
+                {% endfor %}
+
+         </table>
+
+         {% endif %}
+
+      </div>
+
+    </body>
+</html>
