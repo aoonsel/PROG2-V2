@@ -1,27 +1,23 @@
-from data_access import save_activity
-from util import to_seconds, to_minutes, to_pace
+from data.data_access import save_workout
 from flask import Flask, render_template, redirect, request
 from os.path import abspath
 
 app = Flask('runner', template_folder=abspath('templates'))
 
+workouts = {0: 'Squat', 1: 'Bench Press', 2: 'Deadlift'}
+
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('index.html', workouts=workouts)
 
 @app.route('/save', methods=['POST'])
 def save():
     date = request.form['date']
-    distance = float(request.form['distance'])
-    hours = int(request.form['hours'])
-    minutes = int(request.form['minutes'])
-    seconds = int(request.form['seconds'])
-    
-    duration_in_s = to_seconds(hours, minutes, seconds)
-    duration_in_min = to_minutes(hours, minutes, seconds)
-    pace = to_pace(distance, duration_in_min)
+    excercise = request.form.get('excercise')
+    reps = request.form['reps']
+    weight = request.form['weight']
 
-    save_activity({'date': date, 'distance': distance, 'duration': duration_in_s, 'pace': pace})
+    save_workout(date, excercise, reps, weight)
     
     return redirect('/')
 
