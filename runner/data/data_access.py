@@ -11,3 +11,11 @@ def save_workout(date, exercise, reps, weight):
 
     connection.commit()
     connection.close()
+
+def get_workouts():
+    connection = sqlite3.connect(path.join('data', 'workouts.db'))
+    cursor = connection.cursor()
+
+    result = cursor.execute('SELECT * FROM workouts')
+    
+    return result.fetchall()
