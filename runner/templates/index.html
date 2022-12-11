@@ -7,16 +7,60 @@
     <input type="date" name="date">
     <select name="excercise">
       {% for id, excercise in excercises.items() %}
-          <OPTION value={{id}}>{{excercise}}</option>
+        <OPTION value={{id}}>{{excercise}}</option>
       {% endfor %}
-      </select>
-      <input type="number" placeholder="Weight in kg" name="weight" min="0"> 
-      <input type="number" placeholder="Repetitions" name="reps" min="0">
-      <button type="submit" class="btn btn-primary">Save</button>
+    </select>
+    <input type="number" placeholder="Weight in kg" name="weight" min="0"> 
+    <input type="number" placeholder="Repetitions" name="reps" min="0">
+    <button type="submit" class="btn btn-primary">Save</button>
   </form>
 
   <p></p>
 
+  <h2>Show your strongest Sets: </h2>
+  <form method="POST" action="/get">
+    <select name="excercise">
+      {% for id, excercise in excercises.items() %}
+        <OPTION value={{id}}>{{excercise}}</option>
+      {% endfor %}
+    </select>
+    <select>
+      {% for id, query in queries.items() %}
+        <OPTION value={{id}}>{{query}}</option>
+      {% endfor %}
+    </select>
+      <button type="submit" class="btn btn-primary">Show Result</button>
+  </form>
+
+  {% if query_result %}
+  <table id="query_result" class="table table-striped">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Excercise</th>
+          <th>Weight in kg</th>
+          <th>Repetitions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for query_result in query_results %}
+          <tr>
+            <td>{{ query_result['date'] }}</td>
+            <td>{{ excercise['excercise'] }}</td>
+            <td>{{ query_result['weight'] }}</td>
+            <td>{{ query_result['reps'] }}</td>
+            <td>{{ query_result['volume'] }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+
+  
+  {% endif %}
+
+  <p></p>
+
+  <h2>Your Saved Workouts: </h2>
   <table id="data" class="table table-striped">
       <thead>
         <tr>
@@ -24,6 +68,7 @@
           <th>Excercise</th>
           <th>Weight in kg</th>
           <th>Repetitions</th>
+          <th>Volume</th>
         </tr>
       </thead>
       <tbody>
@@ -42,6 +87,7 @@
         {data: 'excercise', searchable: true},
         {data: 'weight', orderable: true, searchable: false},
         {data: 'reps', orderable: true, searchable: false},
+        {data: 'volume', orderable: true, searchable: false},
       ],
     });
   });

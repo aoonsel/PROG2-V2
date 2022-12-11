@@ -1,12 +1,12 @@
 import sqlite3
 from os import path
 
-def save_workout(date, exercise, reps, weight):
+def save_workout(date, exercise, reps, weight, volume):
     connection = sqlite3.connect(path.join('data', 'workouts.db'))
     cursor = connection.cursor()
 
-    cursor.execute('INSERT INTO workouts (date, excercise, reps, weight) VALUES (?, ?, ?, ?)',
-                    (date, exercise, reps, weight)
+    cursor.execute('INSERT INTO workouts (date, excercise, reps, weight, volume) VALUES (?, ?, ?, ?, ?)',
+                    (date, exercise, reps, weight, volume)
                   )
 
     connection.commit()
