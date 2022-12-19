@@ -2,7 +2,7 @@
 
 {% block content %}
 <div>
-  <h2>Enter your workout: </h2>
+  <h2>Enter your Workout: </h2>
   <form method="POST" action="/save">
     <input type="date" name="date">
     <select name="excercise">
@@ -18,13 +18,13 @@
   <p></p>
 
   <h2>Show your strongest Sets: </h2>
-  <form method="POST" action="/get">
+  <form action="/get">
     <select name="excercise">
       {% for id, excercise in excercises.items() %}
         <OPTION value={{id}}>{{excercise}}</option>
       {% endfor %}
     </select>
-    <select>
+    <select name="query">
       {% for id, query in queries.items() %}
         <OPTION value={{id}}>{{query}}</option>
       {% endfor %}
@@ -32,7 +32,6 @@
       <button type="submit" class="btn btn-primary">Show Result</button>
   </form>
 
-  {% if query_result %}
   <table id="query_result" class="table table-striped">
       <thead>
         <tr>
@@ -40,23 +39,12 @@
           <th>Excercise</th>
           <th>Weight in kg</th>
           <th>Repetitions</th>
+          <th>Volume</th>
         </tr>
       </thead>
       <tbody>
-        {% for query_result in query_results %}
-          <tr>
-            <td>{{ query_result['date'] }}</td>
-            <td>{{ excercise['excercise'] }}</td>
-            <td>{{ query_result['weight'] }}</td>
-            <td>{{ query_result['reps'] }}</td>
-            <td>{{ query_result['volume'] }}</td>
-          </tr>
-        {% endfor %}
       </tbody>
   </table>
-
-  
-  {% endif %}
 
   <p></p>
 
@@ -82,6 +70,18 @@
   $(document).ready(function() {
     $('#data').DataTable({
       ajax: '/api/data',
+      columns: [
+        {data: 'date', orderable: true, searchable: false},
+        {data: 'excercise', searchable: true},
+        {data: 'weight', orderable: true, searchable: false},
+        {data: 'reps', orderable: true, searchable: false},
+        {data: 'volume', orderable: true, searchable: false},
+      ],
+    });
+  });
+  $(document).ready(function() {
+    $('#data').DataTable({
+      ajax: '/get',
       columns: [
         {data: 'date', orderable: true, searchable: false},
         {data: 'excercise', searchable: true},

@@ -1,4 +1,4 @@
-from data.data_access import save_workout, get_workouts
+from data.data_access import save_workout, get_workout_for_query, get_workouts
 from flask import Flask, render_template, redirect, request
 from os.path import abspath
 
@@ -13,15 +13,29 @@ def home():
 
 @app.route('/save', methods=['POST'])
 def save():
-    date = request.form['date']
+    date = request.form.get('date')
     excercise = request.form.get('excercise')
-    reps = int(request.form['reps'])
-    weight = float(request.form['weight'])
+    reps = int(request.form.get('reps'))
+    weight = float(request.form.get('weight'))
     volume = reps * weight
 
     save_workout(date, excercise, reps, weight, volume)
     
     return redirect('/')
+
+@app.route('/get')
+def get():
+    excercise = int(request.args.get('excercise'))
+    query = int(request.args.get('query'))
+    
+    workout = get_workout_for_query(query, excercise)[0]
+    query_result = ({'date': workout[1],
+                        'excercise': excercises[workout[2]],
+                        'weight': workout[3],
+                        'reps': workout[4],
+                        'volume': workout[5]})
+
+    return query_result
 
 @app.route('/api/data', methods=['GET'])
 def data():
