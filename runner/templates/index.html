@@ -32,19 +32,18 @@
       <button type="submit" class="btn btn-primary">Show Result</button>
   </form>
 
+  {% if query_result %}
   <table id="query_result" class="table table-striped">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Excercise</th>
-          <th>Weight in kg</th>
-          <th>Repetitions</th>
-          <th>Volume</th>
-        </tr>
-      </thead>
-      <tbody>
-      </tbody>
-  </table>
+      {% for key, value in query_result.items() %}
+         <tr>
+              <th> {{ key }} </th>
+              <td> {{ value }} </td>
+         </tr>
+      {% endfor %}
+      </table>
+  {% else %}
+  <p>No Query</p>
+  {% endif %}
 
   <p></p>
 
@@ -70,18 +69,6 @@
   $(document).ready(function() {
     $('#data').DataTable({
       ajax: '/api/data',
-      columns: [
-        {data: 'date', orderable: true, searchable: false},
-        {data: 'excercise', searchable: true},
-        {data: 'weight', orderable: true, searchable: false},
-        {data: 'reps', orderable: true, searchable: false},
-        {data: 'volume', orderable: true, searchable: false},
-      ],
-    });
-  });
-  $(document).ready(function() {
-    $('#data').DataTable({
-      ajax: '/get',
       columns: [
         {data: 'date', orderable: true, searchable: false},
         {data: 'excercise', searchable: true},

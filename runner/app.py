@@ -6,10 +6,11 @@ app = Flask('runner', template_folder=abspath('templates'))
 
 excercises = {0: 'Squat', 1: 'Bench Press', 2: 'Deadlift'}
 queries = {0: 'Highest Weight', 1: 'Highest Reps', 2: 'Highest Volume'}
+query_result = {}
 
 @app.route('/')
 def home():
-    return render_template('index.html', excercises=excercises, queries=queries)
+    return render_template('index.html', excercises=excercises, queries=queries, query_result=query_result)
 
 @app.route('/save', methods=['POST'])
 def save():
@@ -29,15 +30,15 @@ def get():
     query = int(request.args.get('query'))
     
     workout = get_workout_for_query(query, excercise)[0]
-    query_result = ({'date': workout[1],
-                        'excercise': excercises[workout[2]],
-                        'weight': workout[3],
-                        'reps': workout[4],
-                        'volume': workout[5]})
+    query_result = ({'Query': f'{excercises[excercise]}; {queries[query]}',
+                     'Date': workout[1],
+                     'Weight in kg': workout[3],
+                     'Repetitions': workout[4],
+                     'Volume': workout[5]})
 
-    return query_result
+    return render_template('index.html', excercises=excercises, queries=queries, query_result=query_result)
 
-@app.route('/api/data', methods=['GET'])
+@app.route('/api/data')
 def data():
     workouts = []
     for workout in get_workouts():
