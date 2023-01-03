@@ -8,6 +8,8 @@ insert_base = 'INSERT INTO workouts (date, excercise, reps, weight, volume) VALU
 query_id_to_col_name = {0: 'weight', 1: 'reps', 2: 'volume'}
 
 def save_workout(date, exercise, reps, weight, volume):
+    if not date:
+        date = datetime.now().date()
     connection = sqlite3.connect(path.join('data', 'workouts.db'))
     cursor = connection.cursor()
 
