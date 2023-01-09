@@ -20,3 +20,4 @@ Die erstellte Webapp hilft dabei den Fortschritt im Gym zo protokollieren und ü
 
 **Architektur Diagramm**
 
+![Architektur Diagramm](prog_2_arch_diagram.drawio.png "Architektur Diagramm")
