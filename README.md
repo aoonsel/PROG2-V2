@@ -1,10 +1,10 @@
 **Gym Workout Tracker**
 
-Im Rahmen des Moduls PROG2 hatten wir Studenten den Auftrag, eine Webapp zu erstellen, welche Daten speichern, verarbeiten und wiedergeben kann.
+Im Rahmen des Moduls PROG2 hatten wir Studierenden den Auftrag, eine Webapp zu erstellen, welche Daten speichern, verarbeiten und wiedergeben kann.
 
-Die erstellte Webapp hilft dabei den Fortschritt im Gym zo protokollieren und überwachen. Damit kann die Strategie des [Progressive Overload](https://www.healthline.com/health/progressive-overload) einfacher umgesetzt werden. 
+Die erstellte Webapp hilft dabei den Fortschritt im Gym zu protokollieren und überwachen. Damit kann die Strategie des [Progressive Overload](https://www.healthline.com/health/progressive-overload) einfacher umgesetzt werden. 
 
-Über ein Webformular können Sportler (Nutzer) ihre ausgeführten Übungen erfassen, welche in Folge in einer Datenbank gespeichert werden. Die erfassten Sets werden in einer durchsuchbaren Tabelle dargestellt. Ausserdem bietet die Tabelle die Funktion, die Übungen nach einer der Kategorien zu ordnen.
+Über ein Webformular können Sportlerinnen und Sportler (Nutzer) ihre ausgeführten Übungen erfassen, welche in Folge in einer Datenbank gespeichert werden. Die erfassten Sets werden in einer durchsuchbaren Tabelle dargestellt. Ausserdem bietet die Tabelle die Funktion, die Übungen nach einer der Kategorien zu ordnen.
 
 Über der Tabelle können die besten Übungen pro Kategorie abgefragt werden. Dabei kann entweder die Übung mit dem höchstem Gewicht, der höchsten Anzahl an Wiederholungen oder dem höchstem Volumen (Gewicht*Wiederholungen) abgefragt werden. Sollten zwei Übungen in der abgefragten Kategorie identisch sein, wird jeweils die Übung mit dem aktuellsten Datum angezeigt.
 
